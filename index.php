@@ -166,11 +166,6 @@ function uploadPhoto($user_albums, $album, $photo, $service)
     echo "Uploaded photo $id";
 }
 
-function printPhotoPartialConfirm(Photo $photo)
-{
-    echo "<li>Uploaded photo ".$photo->get_title().'</li>';
-}
-
 function uploadAlbum($user_albums, $album)
 {
     require_once 'hyves/Hyves_Uploader_Wrapper.php';
@@ -183,7 +178,7 @@ function uploadAlbum($user_albums, $album)
 
     echo "<h1>Uploading album...</h1>";
     echo "<ul>";
-    $url = $media->upload_album($album, 'printPhotoPartialConfirm');
+    $url = $media->upload_album($album);
     echo "</ul>";
     echo "<a href='$url' target='blank'>Done! See it on Hyves</a>";
 }
