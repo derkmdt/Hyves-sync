@@ -1,9 +1,15 @@
 <?
 
-abstract class Media_Wrapper
+abstract class Media_Fetcher_Wrapper
 {
     abstract public function log_in();
     abstract public function get_user_albums();
+}
+
+abstract class Media_Uploader_Wrapper
+{
+    abstract public function log_in($next_url);
+    abstract public function upload(Photo $photo);
 }
 
 abstract class External_Album_Id

@@ -1,7 +1,7 @@
 <?php
 require_once 'picasa/Picasa_Wrapper.php';
 
-$media = new Picasa_Wrapper();
+$media = new Picasa_Fetcher_Wrapper();
 if (!$media->log_in())
 {
     echo "You are being redirected to google...";
@@ -90,6 +90,15 @@ function showAlbumDetails($user_albums, $album)
 function showPhotoDetails($user_albums, $album, $photo)
 {
     ?>
+    <div align='right'>
+    <table>
+    <tr><td colspan="1">Share this photo</td></tr>
+    <tr>
+        <td><img src='/theme/hyves_logo.jpg' height='50px'></td>
+    </tr>
+    </table>
+    </div>
+
     <div class="alert"><center>
     <img src='<?= $photo->get_default_thumb_url() ?>'/><br/>
     <?= $photo->get_title() ?>

@@ -1,9 +1,9 @@
 <?
 
+require_once 'config.php';
 require_once 'model/API.php';
 require_once 'picasa/Picasa_Format_Adapter.php';
 
-set_include_path('/home/nico/hackathon/ZendGdata-1.11.11/library');
 require_once 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata');
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
@@ -11,7 +11,7 @@ Zend_Loader::loadClass('Zend_Gdata_Photos');
 Zend_Loader::loadClass('Zend_Gdata_Photos_AlbumQuery');
 Zend_Loader::loadClass('Zend_Gdata_Photos_PhotoQuery');
 
-class Picasa_Wrapper extends Media_Wrapper
+class Picasa_Fetcher_Wrapper extends Media_Fetcher_Wrapper
 {
     private $google_photos_service = NULL;
     private $client = NULL;
@@ -102,7 +102,7 @@ class Picasa_External_Album_Id extends External_Album_Id
     private $id;
     private $picasa;
 
-    public function __construct($id, Picasa_Wrapper $picasa) 
+    public function __construct($id, Picasa_Fetcher_Wrapper $picasa) 
     {
         $this->id = $id;
         $this->picasa = $picasa;
@@ -120,7 +120,7 @@ class Picasa_External_Photo_Id extends External_Photo_Id
     private $album;
     private $picasa;
 
-    public function __construct($id, $album, Picasa_Wrapper $picasa) 
+    public function __construct($id, $album, Picasa_Fetcher_Wrapper $picasa) 
     {
         $this->id = $id;
         $this->album = $album;

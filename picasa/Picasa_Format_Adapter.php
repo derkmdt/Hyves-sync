@@ -1,9 +1,9 @@
 <?
+require_once 'config.php';
 require_once 'model/API.php';
 require_once 'model/Album.php';
 require_once 'model/Photo.php';
 
-set_include_path('/home/nico/hackathon/ZendGdata-1.11.11/library');
 require_once 'Zend/Loader.php';
 Zend_Loader::loadClass('Zend_Gdata');
 Zend_Loader::loadClass('Zend_Gdata_AuthSub');
@@ -15,7 +15,7 @@ class Picasa_Format_Adapter
 {
     public static function get_comments_for_photo(
                             Zend_Gdata_Photos_PhotoFeed $feed,
-                            Picasa_Wrapper $source)
+                            Picasa_Fetcher_Wrapper $source)
     {
         $comments = array();
         foreach ($feed as $entry)
@@ -32,7 +32,7 @@ class Picasa_Format_Adapter
     public static function get_photos_from_external(
                             Zend_Gdata_Photos_AlbumFeed $albumFeed,
                             $album_id,
-                            Picasa_Wrapper $source)
+                            Picasa_Fetcher_Wrapper $source)
     {
         $photos = array();
         foreach ($albumFeed as $entry) {
@@ -49,7 +49,7 @@ class Picasa_Format_Adapter
     public static function get_photo_overview_from_external(
                                 Zend_Gdata_Photos_PhotoEntry $photo,
                                 $album_id,
-                                Picasa_Wrapper $source)
+                                Picasa_Fetcher_Wrapper $source)
     {
         $external_photo_id = $photo->getGphotoId();
         $original_filename = $photo->getTitle();
@@ -93,7 +93,7 @@ class Picasa_Format_Adapter
 
     public static function album_list_from_external(
                                 Zend_Gdata_Photos_UserFeed $feed,
-                                Picasa_Wrapper $source)
+                                Picasa_Fetcher_Wrapper $source)
     {
         $albums = array();
         foreach($feed as $f)
@@ -106,7 +106,7 @@ class Picasa_Format_Adapter
 
     public static function get_album_from_external(
                                 Zend_Gdata_Photos_AlbumEntry $album,
-                                Picasa_Wrapper $source)
+                                Picasa_Fetcher_Wrapper $source)
     {
         $external_album_id = $album->getGphotoId()->getText();
 
