@@ -41,6 +41,9 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
     {
         assert($this->hyves != NULL);
 
+        echo "Uploading! (not really, but almost)";
+        return true;
+
         $file = '';
         $uploadToken = $this->hyves->uploadFile($file, array(
                 'title' => 'Your title',
@@ -60,14 +63,4 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
         echo $mediaId;
     }
 }
-
-/*
-$consumerKey = 'MTAyMThf39vqLmyf-t2LVswBCYWfhg==';
-$consumerSecret = 'MTAyMThfV_7flEzhupNx8JDGX1ZpWQ==';
-$file = '/home/nico/pics/vincent_early.jpg';
-
-$media = new Hyves_Uploader($consumerKey, $consumerSecret);
-$media->log_in('localhost/hyves/media_upload.php');
-$media->upload($file);
-*/
 ?>

@@ -27,7 +27,7 @@ if (isset($_GET['album']) && isset($user_albums[$_GET['album']]))
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>M Sync</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="theme/style.css">
 </head>
 
 <body>
@@ -52,7 +52,11 @@ if (isset($_GET['album']) && isset($user_albums[$_GET['album']]))
 <?
 
 if ($photo != NULL) {
-    showPhotoDetails($user_albums, $album, $photo);
+    if (isset($_GET['upload'])) {
+        uploadPhoto($user_albums, $album, $photo, $_GET['upload']);
+    } else {
+        showPhotoDetails($user_albums, $album, $photo);
+    }
 } else if ($album != NULL) {
     showAlbumDetails($user_albums, $album);
 } else {
@@ -94,7 +98,11 @@ function showPhotoDetails($user_albums, $album, $photo)
     <table>
     <tr><td colspan="1">Share this photo</td></tr>
     <tr>
-        <td><img src='/theme/hyves_logo.jpg' height='50px'></td>
+        <td>
+        <a href='?album=<?=$_GET['album']?>&photo=<?=$_GET['photo']?>&upload=hyves'>
+                <img src='/theme/hyves_logo.jpg' height='50px'>
+            </a>
+        </td>
     </tr>
     </table>
     </div>
@@ -122,6 +130,20 @@ function showPhotoDetails($user_albums, $album, $photo)
         }
     }
 } 
+
+
+function uploadPhoto($user_albums, $album, $photo, $service)
+{
+    require_once 'hyves/Hyves_Uploader_Wrapper.php';
+    
+    $consumerKey = 'MTAyMThf39vqLmyf-t2LVswBCYWfhg==';
+    $consumerSecret = 'MTAyMThfV_7flEzhupNx8JDGX1ZpWQ==';
+    $next_url = 'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
+    $media = new Hyves_Media_Uploader_Wrapper($consumerKey, $consumerSecret);
+    $media->log_in($next_url);
+    $media->upload($photo);
+}
+
 ?>
 
 
