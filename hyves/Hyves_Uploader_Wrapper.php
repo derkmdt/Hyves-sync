@@ -4,6 +4,11 @@ require_once 'MediaMonks/Service/Hyves.php';
 require_once 'MediaMonks/Service/Hyves/Authorization.php';
 require_once 'MediaMonks/Service/Hyves/Authorization/Storage/Session.php';
 
+class Hyves_Media_Fetcher_Wrapper
+{
+    public function log_in($next_action) {}
+    public function get_user_albums() {}
+}
 
 class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
 {
@@ -35,6 +40,40 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
 
         $this->hyves->setToken($accessToken['oauth_token'], $accessToken['oauth_token_secret']);
         return true;
+    }
+
+    function upload_album(Album $album, $upload_callback=NULL)
+    {
+        assert($this->hyves != NULL);
+
+        $opts = array(
+            'title'=>$album->get_title(),
+            'visibility'=>'public',
+            'printability'=>'public'
+        );
+
+        $x = $this->hyves->call('albums.create', array('params'=>$opts));
+        $album_info = $x->parse()->getBody();
+        $album_info = $album_info['album'][0];
+     
+        foreach ($album->get_photos() as $photo)
+        {
+            $mediaid = $this->upload($photo);
+
+            $opts = array(
+                'visibility'=>'public',
+                'printability'=>'public',
+                'albumid' => $album_info['albumid'],
+                'mediaid' => $mediaid,
+            );
+
+            $this->hyves->call('albums.addMedia', array('params'=>$opts));
+
+            // Allow the caller to output a confirmation
+            if ($upload_callback) $upload_callback($photo);
+        }
+
+        return $album_info['url'];
     }
 
     function upload(Photo $photo)

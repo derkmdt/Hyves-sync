@@ -16,7 +16,7 @@ class Picasa_Fetcher_Wrapper extends Media_Fetcher_Wrapper
     private $google_photos_service = NULL;
     private $client = NULL;
 
-    public function log_in()
+    public function log_in($next_action)
     {
         global $_SESSION, $_GET;
 
@@ -46,8 +46,7 @@ class Picasa_Fetcher_Wrapper extends Media_Fetcher_Wrapper
 
         // If we reached this point, this is the first time we are trying to log
         // in, so we need to submit the first request for the loggin token
-        $next = 'http://localhost/';
-        $url = $this->get_auth_url($next);
+        $url = $this->get_auth_url($next_action);
         header("Location: $url");
         return NULL;
     }
@@ -76,6 +75,7 @@ class Picasa_Fetcher_Wrapper extends Media_Fetcher_Wrapper
         $query = new Zend_Gdata_Photos_AlbumQuery();
         $query->setUser("default");
         $query->setAlbumId($id);
+        $query->setImgMax('d');
          
         try {
             $albumFeed = $this->google_photos_service->getAlbumFeed($query);

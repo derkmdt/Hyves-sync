@@ -121,13 +121,16 @@ class Picasa_Format_Adapter
         foreach($album->getLink() as $l) array_push($links, $l->getHref());
         $default_link = (count($links) > 1? $links[1] : NULL);
 
+        // TODO: This will probably be always true...
+        $comments_enabled = $album->getGphotoCommentingEnabled()->getText();
+
         return new Album(
                     new Picasa_External_Album_Id($external_album_id, $source),
                     $album->getTitle()->getText(),
-                    $album->getPublished(),
-                    $album->getSummary(),
-                    $album->getGphotoCommentCount(),
-                    $album->getGphotoCommentingEnabled(),
+                    $album->getPublished()->getText(),
+                    $album->getSummary()->getText(),
+                    $album->getGphotoCommentCount()->getText(),
+                    $comments_enabled,
                     $author,
                     $categories,
                     $default_link,

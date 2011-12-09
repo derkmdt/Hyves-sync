@@ -2,7 +2,7 @@
 require_once 'picasa/Picasa_Wrapper.php';
 
 $media = new Picasa_Fetcher_Wrapper();
-if (!$media->log_in())
+if (!$media->log_in('http://localhost/'))
 {
     echo "You are being redirected to google...";
 }
@@ -54,11 +54,15 @@ if (isset($_GET['album']) && isset($user_albums[$_GET['album']]))
 if ($photo != NULL) {
     if (isset($_GET['upload'])) {
         uploadPhoto($user_albums, $album, $photo, $_GET['upload']);
-    } else {
-        showPhotoDetails($user_albums, $album, $photo);
     }
+
+    showPhotoDetails($user_albums, $album, $photo);
 } else if ($album != NULL) {
+    if (isset($_GET['upload'])) {
+        uploadAlbum($user_albums, $album, $_GET['upload']);
+    }
     showAlbumDetails($user_albums, $album);
+
 } else {
     showAlbums($user_albums);
 }
@@ -74,7 +78,9 @@ function showAlbums($user_albums)
     echo "<ul>";
     foreach ($user_albums as $id=>$album)
     {
-        echo "<li><a href='?album=$id'>".$album->get_title()."</a></li>";
+        echo "<li><a href='?album=$id'>
+                <img src='theme/picasa_logo.jpg' height='10px'>".$album->get_title()."
+              </a></li>";
     }
     echo "</ul>";
 }
@@ -82,7 +88,22 @@ function showAlbums($user_albums)
 
 function showAlbumDetails($user_albums, $album)
 {
-    echo "<h1>Viewing album ".$album->get_title()."</h1><br/>";
+    ?>
+    <div align='right'>
+    <table>
+    <tr><td colspan="1">Share this photo</td></tr>
+    <tr>
+        <td>
+        <a href='?album=<?=$_GET['album']?>&upload=hyves'>
+                <img src='/theme/hyves_logo.jpg' height='50px'>
+            </a>
+        </td>
+    </tr>
+    </table>
+    </div>
+
+    <h1>Viewing album <?= $album->get_title() ?></h1><br/>
+    <?
     foreach ($album->get_photos() as $id=>$photo)
     {
         echo "<hr/>";
@@ -96,7 +117,7 @@ function showPhotoDetails($user_albums, $album, $photo)
     ?>
     <div align='right'>
     <table>
-    <tr><td colspan="1">Share this photo</td></tr>
+    <tr><td colspan="1">Share this album</td></tr>
     <tr>
         <td>
         <a href='?album=<?=$_GET['album']?>&photo=<?=$_GET['photo']?>&upload=hyves'>
@@ -143,7 +164,28 @@ function uploadPhoto($user_albums, $album, $photo, $service)
     $media->log_in($next_url);
     $id = $media->upload($photo);
     echo "Uploaded photo $id";
-    return showPhotoDetails($user_albums, $album, $photo);
+}
+
+function printPhotoPartialConfirm(Photo $photo)
+{
+    echo "<li>Uploaded photo ".$photo->get_title().'</li>';
+}
+
+function uploadAlbum($user_albums, $album)
+{
+    require_once 'hyves/Hyves_Uploader_Wrapper.php';
+
+    $consumerKey = 'MTAyMThf39vqLmyf-t2LVswBCYWfhg==';
+    $consumerSecret = 'MTAyMThfV_7flEzhupNx8JDGX1ZpWQ==';
+    $next_url = 'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
+    $media = new Hyves_Media_Uploader_Wrapper($consumerKey, $consumerSecret);
+    $media->log_in($next_url);
+
+    echo "<h1>Uploading album...</h1>";
+    echo "<ul>";
+    $url = $media->upload_album($album, 'printPhotoPartialConfirm');
+    echo "</ul>";
+    echo "<a href='$url' target='blank'>Done! See it on Hyves</a>";
 }
 
 ?>

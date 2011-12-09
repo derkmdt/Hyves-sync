@@ -2,7 +2,7 @@
 
 abstract class Media_Fetcher_Wrapper
 {
-    abstract public function log_in();
+    abstract public function log_in($next_url);
     abstract public function get_user_albums();
 }
 
