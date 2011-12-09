@@ -57,7 +57,7 @@ class Picasa_Format_Adapter
 
         $thumbs = array();
         foreach($photo->getMediaGroup()->getThumbnail() as $t) array_push($thumbs, $t->getUrl());
-        $default_thumb = (count($thumbs) > 1? $thumbs[1] : NULL);
+        $default_thumb = (count($thumbs) > 1? $thumbs[count($thumbs)-1] : NULL);
 
         $links = array();
         foreach($photo->getLink() as $link) array_push($links, $link->getHref());
@@ -65,6 +65,13 @@ class Picasa_Format_Adapter
  
         // Calling $photo->getExifTags() yields a lot of interesting
         // info on the picture. TODO: What can we get from there?
+
+        $geo = NULL;
+        if ($photo->getGeoRssWhere() && $photo->getGeoRssWhere()->getPoint()
+            && $photo->getGeoRssWhere()->getPoint()->getPos())
+        {
+            $geo = $photo->getGeoRssWhere()->getPoint()->getPos()->getText();
+        }
 
         return new Photo(
                 new Picasa_External_Photo_Id($external_photo_id, $album_id, $source),
@@ -79,7 +86,7 @@ class Picasa_Format_Adapter
                 $photo->getGphotoHeight(),
                 $photo->getGphotoWidth(),
                 $photo->getGphotoSize(),
-                $photo->getGeoRssWhere()->getPoint()->getPos()->getText()
+                $geo
             );
     }
 
