@@ -129,7 +129,7 @@ function showPhotoDetails($user_albums, $album, $photo)
     </div>
 
     <div class="alert"><center>
-    <img src='<?= $photo->get_default_thumb_url() ?>'/><br/>
+    <img src='<?= $photo->get_full_size_url() ?>'/><br/>
     <?= $photo->get_title() ?>
     </center></div>
     <hr/>

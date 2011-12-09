@@ -6,6 +6,7 @@ class Photo
 {
     private $external_photo_id;
     private $default_thumb_url;
+    private $full_size_url;
     private $default_link;
     private $links;
     private $title;
@@ -21,6 +22,7 @@ class Photo
 
     public function get_default_thumb_url() { return $this->default_thumb_url; }
     public function get_default_link() { return $this->default_link; }
+    public function get_full_size_url() { return $this->full_size_url; }
     public function get_links() { return $this->links; }
     public function get_title() { return $this->title; }
     public function get_last_updated() { return $this->last_updated; }
@@ -54,6 +56,7 @@ class Photo
     public function __construct(
                         External_Photo_Id $external_photo_id,
                         $default_thumb_url,
+                        $full_size_url,
                         $default_link,
                         array $links,
                         $title,
@@ -68,6 +71,7 @@ class Photo
     {
         $this->external_photo_id = $external_photo_id;
         $this->default_thumb_url = $default_thumb_url;
+        $this->full_size_url = $full_size_url;
         $this->default_link = $default_link;
         $this->links = $links;
         $this->title = $title;

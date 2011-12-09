@@ -55,6 +55,9 @@ class Picasa_Format_Adapter
         $original_filename = $photo->getTitle()->getText();
         $title = $photo->getSummary()->getText();
 
+        $x = $photo->getMediaGroup()->getContent();
+        $full_size_url = $x[0]->getUrl();
+
         $thumbs = array();
         foreach($photo->getMediaGroup()->getThumbnail() as $t) array_push($thumbs, $t->getUrl());
         $default_thumb = (count($thumbs) > 1? $thumbs[count($thumbs)-1] : NULL);
@@ -76,6 +79,7 @@ class Picasa_Format_Adapter
         return new Photo(
                 new Picasa_External_Photo_Id($external_photo_id, $album_id, $source),
                 $default_thumb,
+                $full_size_url,
                 $link_to_source,
                 $links,
                 $title,
