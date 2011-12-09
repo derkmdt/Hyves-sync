@@ -141,7 +141,9 @@ function uploadPhoto($user_albums, $album, $photo, $service)
     $next_url = 'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
     $media = new Hyves_Media_Uploader_Wrapper($consumerKey, $consumerSecret);
     $media->log_in($next_url);
-    $media->upload($photo);
+    $id = $media->upload($photo);
+    echo "Uploaded photo $id";
+    return showPhotoDetails($user_albums, $album, $photo);
 }
 
 ?>

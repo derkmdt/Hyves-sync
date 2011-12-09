@@ -41,14 +41,15 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
     {
         assert($this->hyves != NULL);
 
-        echo "Uploading! (not really, but almost)";
-        return true;
+        $img = file_get_contents($photo->get_default_thumb_url());
+        $file = tempnam('', 'msync_temp_photo');
+        file_put_contents($file, $img);
 
-        $file = '';
-        $uploadToken = $this->hyves->uploadFile($file, array(
-                'title' => 'Your title',
-                'description' => 'Your description'
-        ));
+        $opts = array(
+                'title' => (($photo->get_title() == "")? 'MSync photo' : $photo->get_title()),
+                'description' => $photo->get_upload_description()
+            );
+        $uploadToken = $this->hyves->uploadFile($file, $opts);
 
         // poll upload status
         while(true) {
@@ -60,7 +61,7 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
                 }
         }
 
-        echo $mediaId;
+        return $mediaId;
     }
 }
 ?>

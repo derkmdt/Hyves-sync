@@ -52,8 +52,8 @@ class Picasa_Format_Adapter
                                 Picasa_Fetcher_Wrapper $source)
     {
         $external_photo_id = $photo->getGphotoId();
-        $original_filename = $photo->getTitle();
-        $title = $photo->getSummary();
+        $original_filename = $photo->getTitle()->getText();
+        $title = $photo->getSummary()->getText();
 
         $thumbs = array();
         foreach($photo->getMediaGroup()->getThumbnail() as $t) array_push($thumbs, $t->getUrl());

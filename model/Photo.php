@@ -32,6 +32,14 @@ class Photo
     public function get_original_size_bytes() { return $this->original_size_bytes; }
     public function get_geo_location() { return $this->geo_location; }
 
+    public function get_upload_description()
+    {
+        $s = '';
+        $s .= 'Uploaded through M Sync. You can see the original photo at ';
+        $s .= $this->get_default_link();
+        return $s;
+    }
+
     public function get_comments()
     {
         if ($this->comments == NULL)
