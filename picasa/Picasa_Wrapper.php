@@ -41,7 +41,7 @@ class Picasa_Fetcher_Wrapper extends Media_Fetcher_Wrapper
             $_SESSION['sessionToken'] =
                 Zend_Gdata_AuthSub::getAuthSubSessionToken($_GET['token']);
 
-            return $this->log_in();
+            return $this->log_in($next_action);
         }
 
         // If we reached this point, this is the first time we are trying to log
