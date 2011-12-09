@@ -91,7 +91,7 @@ function showAlbumDetails($user_albums, $album)
     ?>
     <div align='right'>
     <table>
-    <tr><td colspan="1">Share this photo</td></tr>
+    <tr><td colspan="1">Share this album</td></tr>
     <tr>
         <td>
         <a href='?album=<?=$_GET['album']?>&upload=hyves'>
@@ -117,7 +117,7 @@ function showPhotoDetails($user_albums, $album, $photo)
     ?>
     <div align='right'>
     <table>
-    <tr><td colspan="1">Share this album</td></tr>
+    <tr><td colspan="1">Share this picture</td></tr>
     <tr>
         <td>
         <a href='?album=<?=$_GET['album']?>&photo=<?=$_GET['photo']?>&upload=hyves'>
