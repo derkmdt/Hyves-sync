@@ -1,0 +1,5 @@
+<?php
+
+class MediaMonks_Service_Hyves_Authorization_Storage_Exception extends MediaMonks_Service_Hyves_Authorization_Exception
+{
+}
