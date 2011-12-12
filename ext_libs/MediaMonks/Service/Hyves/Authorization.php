@@ -119,7 +119,8 @@ class MediaMonks_Service_Hyves_Authorization extends MediaMonks_Service_Hyves
 		$authorizeUrl .= '?oauth_token=' . OAuthUtil::urlencode_rfc3986($token);
 		$authorizeUrl .= '&oauth_callback=' . OAuthUtil::urlencode_rfc3986($callback);
 
-		header('Location: ' . $authorizeUrl);
+		echo 'Geef <a href="' . $authorizeUrl . '">hier</a> toestemming om je foto(\'s) te uploaden.';
+		//header('Location: ' . $authorizeUrl);
 		exit; // exit is important because not all client respect headers
 	}
 

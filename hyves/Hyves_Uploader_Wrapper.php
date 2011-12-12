@@ -80,7 +80,7 @@ class Hyves_Media_Uploader_Wrapper extends Media_Uploader_Wrapper
     {
         assert($this->hyves != NULL);
 
-        $img = file_get_contents($photo->get_default_thumb_url());
+        $img = file_get_contents($photo->get_full_size_url());
         $file = tempnam('', 'msync_temp_photo');
         file_put_contents($file, $img);
 

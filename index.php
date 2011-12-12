@@ -1,8 +1,9 @@
 <?php
 require_once 'picasa/Picasa_Wrapper.php';
+define("DOMAIN", 'http://localhost/');
 
 $media = new Picasa_Fetcher_Wrapper();
-if (!$media->log_in('http://localhost/'))
+if (!$media->log_in(DOMAIN))
 {
     echo "You are being redirected to google...";
 }
@@ -33,8 +34,8 @@ if (isset($_GET['album']) && isset($user_albums[$_GET['album']]))
 <body>
 
 <ul class="sandbar">
-        <li id="logo"><a href="https://code.google.com/p/godmin/" target="_blank">
-                <img src="theme/godmin.png" height="33" width="100" border="0" />
+        <li id="logo"><a href="http://www.hyves.nl" target="_blank">
+                <img src="theme/logo.png" height="27" width="72" border="0" />
                 </a>
         </li>
 
@@ -159,7 +160,7 @@ function uploadPhoto($user_albums, $album, $photo, $service)
     
     $consumerKey = 'MTAyMThf39vqLmyf-t2LVswBCYWfhg==';
     $consumerSecret = 'MTAyMThfV_7flEzhupNx8JDGX1ZpWQ==';
-    $next_url = 'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
+    $next_url =  DOMAIN.'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
     $media = new Hyves_Media_Uploader_Wrapper($consumerKey, $consumerSecret);
     $media->log_in($next_url);
     $id = $media->upload($photo);
@@ -172,7 +173,7 @@ function uploadAlbum($user_albums, $album)
 
     $consumerKey = 'MTAyMThf39vqLmyf-t2LVswBCYWfhg==';
     $consumerSecret = 'MTAyMThfV_7flEzhupNx8JDGX1ZpWQ==';
-    $next_url = 'http://localhost/?album='.$_GET['album']."&photo=".$_GET['photo'].'&upload=hyves&confirm';
+    $next_url = DOMAIN.'?album='.$_GET['album'].'&upload=hyves&confirm';
     $media = new Hyves_Media_Uploader_Wrapper($consumerKey, $consumerSecret);
     $media->log_in($next_url);
 
@@ -184,5 +185,3 @@ function uploadAlbum($user_albums, $album)
 }
 
 ?>
-
-

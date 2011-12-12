@@ -48,7 +48,7 @@ ul.sandbar li {
 
 
 ul.sandbar li#logo {
-        padding:0 5px;
+        padding: 5px;
         background-color: transparent;
         cursor:pointer;
 }
@@ -77,10 +77,10 @@ ul.sandbar li.active a{
 }
 
 
-ul.sandbar li:hover     {
+ul.sandbar li:hover {
         background-color:#006699;
         background:-moz-linear-gradient(0% 100% 90deg,#ffffff, #7BA400);
-        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#7BA400), to(#ffffff));
+        background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#006699), to(#ffffff));
         background:-o-linear-gradient(top,rgb(123,164,0),rgb(255,255,255));
         filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7BA400', endColorstr='#ffffff');/*For IE7-8-9*/ 
         cursor:pointer;
