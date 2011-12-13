@@ -1,6 +1,5 @@
 <?php
 require_once 'picasa/Picasa_Wrapper.php';
-define("DOMAIN", 'http://localhost/');
 
 $media = new Picasa_Fetcher_Wrapper();
 if (!$media->log_in(DOMAIN))
@@ -96,7 +95,7 @@ function showAlbumDetails($user_albums, $album)
     <tr>
         <td>
         <a href='?album=<?=$_GET['album']?>&upload=hyves'>
-                <img src='/theme/hyves_logo.jpg' height='50px'>
+                <img src='theme/hyves_logo.jpg' height='50px'>
             </a>
         </td>
     </tr>
@@ -122,7 +121,7 @@ function showPhotoDetails($user_albums, $album, $photo)
     <tr>
         <td>
         <a href='?album=<?=$_GET['album']?>&photo=<?=$_GET['photo']?>&upload=hyves'>
-                <img src='/theme/hyves_logo.jpg' height='50px'>
+                <img src='theme/hyves_logo.jpg' height='50px'>
             </a>
         </td>
     </tr>

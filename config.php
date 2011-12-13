@@ -11,5 +11,6 @@ $inc_paths_demo = array(
 
 $path = implode($inc_paths_demo, PATH_SEPARATOR);
 set_include_path(get_include_path() . PATH_SEPARATOR . $path);
-
+//define("DOMAIN", 'http://localhost/');
+define("DOMAIN", 'http://www.apikooien.nl/derk/hyves-sync/');
 ?>
